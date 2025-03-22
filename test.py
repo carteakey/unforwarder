@@ -56,8 +56,8 @@ def prompt_func(data):
 chain = prompt_func | llm | StrOutputParser()
 
 source_folder = "/Users/kchauhan/Downloads/whatsapp/WhatsApp Chat - God bless us all"
-meme_folder = os.path.join(source_folder, "meme")
-non_meme_folder = os.path.join(source_folder, "non-meme")
+meme_folder = os.path.join(source_folder, "save")
+non_meme_folder = os.path.join(source_folder, "review-n-delete")
 
 if not os.path.exists(meme_folder):
     os.makedirs(meme_folder)
@@ -76,7 +76,7 @@ for filename in tqdm(files_to_process, desc="Processing images"):
     image_b64 = convert_to_base64(pil_image)
 
     response = chain.invoke(
-        {"text": "Does this image contain any content that is not a personal photo, such as social media texts, screenshots, good morning messages, super blurry images, memes, or any other forwarded content? Just answer yes or no. Be strict in your filtering.", "image": image_b64}
+        {"text": "Is this image one of - social media texts, screenshots, good morning messages, super blurry images, memes, or any other forwarded content? Just answer yes or no (no other explanations). Be strict in your filtering.", "image": image_b64}
     )
     print(response)
     if response.startswith("Yes"):
